@@ -125,7 +125,7 @@ module.exports.onStart = async ({ api, event, args, usersData }) => {
 module.exports.onReply = async ({ api, event, Reply }) => {
   try{
   if (event.type == "message_reply") {
-    const a = (await axios.get(`${Reply.apiUrl}?text=${encodeURIComponent(event.body?.toLowerCase())}&senderID=${event.senderID}&font=1`)).data.reply;
+    const a = (await axios.get(`${await baseApiUrl()}/baby?text=${encodeURIComponent(event.body?.toLowerCase())}&senderID=${event.senderID}&font=1`)).data.reply;
     await api.sendMessage(a, event.threadID, (error, info) => {
       global.GoatBot.onReply.set(info.messageID, {
         commandName: this.config.name,
@@ -140,12 +140,13 @@ module.exports.onReply = async ({ api, event, Reply }) => {
       return api.sendMessage(`Error: ${err.message}`, event.threadID, event.messageID);
     }};
 
-module.exports.onChat = async ({ api, event }) => {
+module.exports.onChat = async ({ api, event,message }) => {
   try{
-  if (event.type == "message_reply") {
     const body = event.body ? event.body.toLowerCase() : ""
     if(body.startsWith("baby") || body.startsWith("bby") || body.startsWith("janu")){
-    const a = (await axios.get(`${await baseApiUrl()}/baby?text=${encodeURIComponent(body.replace(/^\S+\s*/, ""))}&senderID=${event.senderID}&font=1`)).data.reply;
+      const arr = body.replace(/^\S+\s*/, "")
+      if(!arr) return message.reply("Yes 😀, i am here ")
+    const a = (await axios.get(`${await baseApiUrl()}/baby?text=${encodeURIComponent(arr)}&senderID=${event.senderID}&font=1`)).data.reply;
     await api.sendMessage(a, event.threadID, (error, info) => {
       global.GoatBot.onReply.set(info.messageID, {
         commandName: this.config.name,
@@ -156,7 +157,6 @@ module.exports.onChat = async ({ api, event }) => {
       });
     }, event.messageID);
     }
-  }  
   }catch(err){
       return api.sendMessage(`Error: ${err.message}`, event.threadID, event.messageID);
     }};
