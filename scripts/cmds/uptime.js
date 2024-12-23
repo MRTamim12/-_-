@@ -84,7 +84,7 @@ module.exports = {
 
     onStart: async function ({ api, event, usersData, threadsData }) {
 
-        const botName = config.nickNameBot || "𝒀𝑶𝑼𝑹_𝑩𝑨𝑩𝒀_𝑩𝑶𝑻࿐❤️‍🩹💫"; // Fetching from config
+        const botName = config.nickNameBot || "𝑻𝑨𝑴𝑰𝑴_𝑩𝑶𝑻🩵🐼"; // Fetching from config
 
         const botPrefix = config.prefix || ".";
 
@@ -106,7 +106,7 @@ module.exports = {
 
         const links = [
 
-            "https://i.imgur.com/AgzgZkC.jpeg"
+            "https://i.imgur.com/0CcJkeB.mp4"
 
         ];
 
